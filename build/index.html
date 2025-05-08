@@ -9,7 +9,7 @@
   <p>Backend health:</p>
   <pre id="health">loading…</pre>
   <script>
-    fetch('/api/health')
+    fetch('/actuator/health')
       .then(r => r.json())
       .then(j => {
         document.getElementById('health').textContent =
