@@ -1,0 +1,21 @@
+{
+  "name": "hackathon-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "mkdir -p build && cp -r public/* build/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XinSu-Jiang/Hackathon-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XinSu-Jiang/Hackathon-frontend/issues"
+  },
+  "homepage": "https://github.com/XinSu-Jiang/Hackathon-frontend#readme",
+  "description": ""
+}
