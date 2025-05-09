@@ -34,6 +34,6 @@ jobs:
           aws ecs update-service \
             --cluster hackathon-cluster \
             --service frontend-service \
-            --region ${{ secrets.AWS_REGION }} # 일관성을 위해 secrets 사용 권장
+            --region ${{ secrets.AWS_REGION }} \
             --force-new-deployment
           echo "ECS frontend deploy finished"
