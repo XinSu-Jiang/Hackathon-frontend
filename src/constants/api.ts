@@ -1,5 +1,5 @@
 const BASE_URL =
-  'http://hackathon-alb-463254656.ap-northeast-2.elb.amazonaws.com/';
+  'http://hackathon-alb-463254656.ap-northeast-2.elb.amazonaws.com';
 
 export const END_POINTS = {
   POSTS: '/posts',
