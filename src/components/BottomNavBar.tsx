@@ -1,6 +1,7 @@
 import {
   ChefHat,
   Home,
+  Plus,
   Refrigerator,
   Search,
   Sparkles,
@@ -36,15 +37,9 @@ const BottomNavBar = () => {
       />
 
       <BottomNavButton
-        path="/ingredients"
-        icon={<Refrigerator size={24} className="mb-1" />}
-        label="냉장고"
-      />
-
-      <BottomNavButton
-        path="/air"
-        icon={<Sparkles size={24} className="mb-1" />}
-        label="AI 레시피"
+        path="/create-post"
+        icon={<Plus size={24} className="mb-1" />}
+        label="포스팅"
       />
 
       <BottomNavButton

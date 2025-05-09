@@ -27,6 +27,7 @@ type UseInfiniteScrollOptions<
   initialPageParam: TPageParam;
   threshold?: number;
   throttleMs?: number;
+  staleTime?: number;
 };
 
 export const useInfiniteScroll = <
@@ -42,6 +43,7 @@ export const useInfiniteScroll = <
   initialPageParam,
   threshold = 0.5,
   throttleMs = 300,
+  staleTime = 1000 * 60 * 5,
 }: UseInfiniteScrollOptions<TQueryFnData, TQueryKey, TPageParam>) => {
   const queryResult = useInfiniteQuery<
     TQueryFnData,
@@ -55,6 +57,7 @@ export const useInfiniteScroll = <
       queryFn({ pageParam } as { pageParam: TPageParam }),
     getNextPageParam,
     initialPageParam,
+    staleTime,
   });
 
   const {

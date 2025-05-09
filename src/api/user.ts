@@ -20,7 +20,6 @@ export const getMyInfo = async () => {
   const { data } = await axiosInstance.get<User>(END_POINTS.MY_INFO, {
     useAuth: true,
   });
-  console.log('getMyInfo', data);
   return data;
 };
 

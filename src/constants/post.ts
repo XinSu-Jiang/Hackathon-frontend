@@ -36,6 +36,10 @@ export const CATEGORY_CODES = {
   '기타 재능': 'OTHER',
 };
 
+export const CATEGORY_CODES_TO_STRING = Object.fromEntries(
+  Object.entries(CATEGORY_CODES).map(([key, value]) => [value, key]),
+);
+
 export const CATEGORY_TYPES = Object.keys(CATEGORY_CODES);
 
 export const SORT_TYPES = ['최신순', '오래된순'];

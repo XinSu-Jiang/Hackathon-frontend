@@ -3,6 +3,8 @@ const BASE_URL =
 
 export const END_POINTS = {
   POSTS: '/posts',
+  POSTS_BY_USER: (userId: number) => `/users/${userId}/posts`,
+  POSTS_REVIEWS: (userId: number) => `/users/${userId}/reviews/received`,
   GOOGLE_LOGIN: `${BASE_URL}/oauth2/authorization/google`,
   KAKAO_LOGIN: `${BASE_URL}/oauth2/authorization/kakao`,
   NAVER_LOGIN: `${BASE_URL}/oauth2/authorization/naver`,
@@ -11,10 +13,7 @@ export const END_POINTS = {
   USER_INFO: '/users/me',
   MY_FAVORITES: '/me/favorites',
   MY_INFO: '/me',
-  MY_INGREDIENTS: '/me/fridge/items',
-  MY_INGREDIENTS_BY_ID: (id: number) => `/me/fridge/items/${id}`,
-  MY_INGREDIENTS_BULK: '/me/fridge/items/bulk',
-  USER_RECIPES: (id: number) => `/users/${id}/recipes`,
+  MY_NOTIFICATIONS: 'users/me/notifications',
   PRESIGNED_URLS: '/recipes/presigned-urls',
 };
 

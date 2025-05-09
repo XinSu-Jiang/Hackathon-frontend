@@ -20,6 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 import { useUserStore } from '@/store/useUserStore';
+import MyPostsTabContent from '@/components/MyPostsTabContent';
 
 interface Tab {
   id: string;
@@ -30,13 +31,28 @@ interface Tab {
 const UserDetailPage = () => {
   const { user } = useUserStore();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<string>('나의 레시피');
+  const [activeTab, setActiveTab] = useState<string>('나의 포스팅');
 
   const guestUser: User = {
     id: 0,
     nickname: '게스트',
     profileImage: '/default-profile.png',
     profileContent: '로그인하여 더 많은 기능을 사용해보세요.',
+  };
+  const tabs: Tab[] = [
+    { id: '나의 포스팅', label: '나의 포스팅', icon: Award },
+    { id: '내가 받은 칭찬', label: '내가 받은 칭찬', icon: BookOpen },
+  ];
+
+  const getPostsByTab = () => {
+    switch (activeTab) {
+      case '나의 포스팅':
+        return <MyPostsTabContent userId={displayUser.id} />;
+      case '내가 받은 칭찬':
+        return <></>;
+      default:
+        return <></>;
+    }
   };
 
   const displayUser = user ? user : guestUser;
@@ -45,12 +61,8 @@ const UserDetailPage = () => {
     navigate('/login');
   };
 
-  const handleCreateRecipeClick = () => {
-    navigate('/recipes/new');
-  };
-
   return (
-    <div className="bg-cgray flex min-h-screen flex-col overflow-hidden">
+    <div className="bg-cgray mb-20 flex min-h-screen flex-col overflow-hidden">
       <div className="z-30 bg-white p-4">
         <h2 className="text-2xl font-bold">프로필</h2>
       </div>
@@ -66,11 +78,6 @@ const UserDetailPage = () => {
                   className="h-full w-full object-cover"
                 />
               </div>
-              {user && (
-                <div className="bg-olive-light absolute -right-1 -bottom-1 flex h-8 w-8 items-center justify-center rounded-full shadow-md">
-                  <Edit size={14} className="text-white" />
-                </div>
-              )}
             </div>
 
             <div className="mb-2 ml-4">
@@ -86,20 +93,45 @@ const UserDetailPage = () => {
             >
               <LogIn size={16} className="mr-1" /> 로그인
             </Button>
-          ) : (
-            <Button
-              className="bg-olive-light gap-0 rounded-full px-6 text-white"
-              onClick={handleCreateRecipeClick}
-            >
-              <Plus size={16} className="mr-1" /> 레시피 생성하러가기
-            </Button>
-          )}
+          ) : null}
         </div>
 
         <p className="mt-3 max-w-[90%] text-sm text-black/90">
           {!user ? displayUser.profileContent : '테스트 상태메세지'}
         </p>
       </div>
+      <div className="border-b border-gray-200">
+        <div className="flex">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`relative flex-1 py-4 ${
+                activeTab === tab.id
+                  ? 'font-bold text-amber-400'
+                  : 'text-gray-500'
+              }`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              <span className="flex flex-col items-center">
+                <tab.icon size={18} className="mb-1" />
+                <p>{tab.label}</p>
+              </span>
+              {activeTab === tab.id && (
+                <div className="absolute right-0 bottom-0 left-0 h-[3px] bg-amber-400" />
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+      {user ? (
+        getPostsByTab()
+      ) : (
+        <div className="flex grow flex-col items-center justify-center p-10 text-center">
+          <p className="mb-4 text-gray-500">
+            로그인하여 포스팅을 관리해보세요.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
