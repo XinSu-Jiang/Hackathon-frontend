@@ -6,7 +6,11 @@ import { END_POINTS, PAGE_SIZE } from '@/constants/api';
 import { buildParams } from '@/utils/object';
 
 export const createPost = async (post: PostPayload) => {
-  const response = await axiosInstance.post(END_POINTS.POSTS, post);
+  const newPost = {
+    ...post,
+    donationDate: new Date(post.donationDate).toISOString(),
+  };
+  const response = await axiosInstance.post(END_POINTS.POSTS, newPost);
   return response.data;
 };
 
