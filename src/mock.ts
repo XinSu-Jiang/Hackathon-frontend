@@ -10,23 +10,6 @@ export const mockUser: User = {
   level: 1,
 };
 
-export const mockPost: Post = {
-  id: 1,
-  title: '(선착순 무료) 2달 전과정/ 피아노 문화강좌(재능기부)',
-  description:
-    '(선착순 무료) 2달 전과정/ 피아노 문화강좌(재능기부)\n안녕하세요\n무료로 피아노 재능기부를 하시게 되서 알려드려요~!\n코드 반주법! 2달정복 가능합니다!\n40년 이상 초등학교 음악선생님께서 알기 쉽게 차근차근 알려주신대요~ 부모님, 초등학교친구들도 알 수 있게 잘 알려주시는 티칭능력으로 왕초보들도 쉽게 코드건반을 칠 수 있답니다~!!!\n매주 목요일날 3타임으로 나눠져있구요~\n왕초보,초보들에게는 아주 좋은기회예요~\n아이 학교 어린이집에맡기고 취미로 시작해보셔도 너무 좋겠죠?\n교재비와 음료비가 무료래요!\n레슨후에 무료로 연습도 가능하답니다~\n이번기회에 건반한번 쳐보시는 것 어떠세요?^^♡\n장소는 빨래방건물 지하1층이예요~',
-  author: mockUser,
-  appliedByCurrentUser: true,
-  createdAt: '2021-01-01',
-  donationDate: '2021-01-01',
-  participants: [mockUser],
-  currentPersonCount: 6,
-  capacity: 10,
-  cost: '10000',
-  location: '서울 광진구',
-  maxAmount: 100000,
-};
-
 export const mockPostItems: PostItem[] = [
   {
     id: 1,

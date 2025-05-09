@@ -15,6 +15,7 @@ module.exports = {
         },
         beige: '#f7f4ee',
         brown: '#806f5c',
+        pinkk: '#dca8b0',
       },
       fontSize: {
         mm: '15px',
