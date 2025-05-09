@@ -15,7 +15,8 @@
   "author": "",
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "mkdir -p build && cp -r public/* build/",
+    "buildy": "tsc -b && vite build",
     "dev": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
