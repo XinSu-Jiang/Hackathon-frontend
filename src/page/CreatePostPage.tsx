@@ -51,6 +51,7 @@ const CreatePostPage = () => {
   const currentSupportAmount = watch('maxAmount');
 
   const onSubmit: SubmitHandler<PostPayload> = (data) => {
+    console.log(data);
     createPost(data, {
       onSuccess: () => {
         addToast({
@@ -256,6 +257,7 @@ const CreatePostPage = () => {
         <ProgressButton
           progressPercentage={progressPercentage}
           isFormValid={isValid && isDirty}
+          onClick={handleSubmit(onSubmit)}
         />
       </form>
     </div>

@@ -3,10 +3,10 @@ import axios from 'axios';
 import { checkAndSetToken, handleTokenError } from '@/api/interceptors';
 
 const AXIOS_BASE_URL =
-  'https://hackathon-db.crsiugqea11k.ap-northeast-2.rds.amazonaws.com/api';
+  'http://hackathon-alb-463254656.ap-northeast-2.elb.amazonaws.com/api';
 
 const NETWORK = {
-  TIMEOUT: 1000,
+  TIMEOUT: 10000,
 } as const;
 
 export const axiosInstance = axios.create({

@@ -152,7 +152,7 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div className="flex h-[1000px] flex-col gap-4 p-4">
+      <div className="flex flex-col gap-4 p-4">
         {mockPostItems.map((post) => (
           <div
             key={post.id}
