@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-import { Gift } from 'lucide-react';
+import { Check, X, Gift } from 'lucide-react';
 import AutoHideNavbar from '@/components/AutoHideNavbar';
 import { Button } from '@/components/ui/button';
 import SponsorshipDrawer from '@/components/SponsorshipDrawer';
 import usePostDetailQuery from '@/hooks/usePostDetailQuery';
 import { useParams } from 'react-router';
 import { useUserStore } from '@/store/useUserStore';
+import { Apply } from '@/types/post';
 const PostPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { postId } = useParams();
@@ -41,8 +42,89 @@ const PostPage = () => {
     }
   };
 
+  const applies: Apply[] = [
+    {
+      id: 1,
+      postId: 1,
+      user: {
+        id: 1,
+        nickname: '홍길동',
+        profileImage:
+          'https://ui-avatars.com/api/?name=홍길동&background=random',
+      },
+      status: 'PENDING',
+      appliedAt: '2021-01-01',
+      responseAt: '2021-01-01',
+    },
+    {
+      id: 2,
+      postId: 1,
+      user: {
+        id: 1,
+        nickname: '홍길동',
+        profileImage:
+          'https://ui-avatars.com/api/?name=홍길동&background=random',
+      },
+      status: 'PENDING',
+      appliedAt: '2021-01-01',
+      responseAt: '2021-01-01',
+    },
+    {
+      id: 3,
+      postId: 1,
+      user: {
+        id: 1,
+        nickname: '홍길동',
+        profileImage:
+          'https://ui-avatars.com/api/?name=홍길동&background=random',
+      },
+      status: 'PENDING',
+      appliedAt: '2021-01-01',
+      responseAt: '2021-01-01',
+    },
+    {
+      id: 4,
+      postId: 1,
+      user: {
+        id: 1,
+        nickname: '홍길동',
+        profileImage:
+          'https://ui-avatars.com/api/?name=홍길동&background=random',
+      },
+      status: 'PENDING',
+      appliedAt: '2021-01-01',
+      responseAt: '2021-01-01',
+    },
+    {
+      id: 5,
+      postId: 1,
+      user: {
+        id: 1,
+        nickname: '홍길동',
+        profileImage:
+          'https://ui-avatars.com/api/?name=홍길동&background=random',
+      },
+      status: 'PENDING',
+      appliedAt: '2021-01-01',
+      responseAt: '2021-01-01',
+    },
+    {
+      id: 6,
+      postId: 1,
+      user: {
+        id: 1,
+        nickname: '홍길동',
+        profileImage:
+          'https://ui-avatars.com/api/?name=홍길동&background=random',
+      },
+      status: 'PENDING',
+      appliedAt: '2021-01-01',
+      responseAt: '2021-01-01',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-white p-4">
+    <div className="mb-20 min-h-screen bg-white p-4">
       <AutoHideNavbar />
       <main className="container mx-auto mt-10 mb-15 space-y-6 p-4 md:p-6">
         <div className="flex items-center space-x-4">
@@ -125,6 +207,32 @@ const PostPage = () => {
           </Button>
         </div>
       </main>
+      <h2 className="mb-4 text-xl font-semibold text-slate-700">신청자 목록</h2>
+      <div className="flex flex-col items-center justify-center gap-1">
+        {applies.map((apply) => (
+          <div
+            key={apply.id}
+            className="flex w-full items-center justify-between gap-2"
+          >
+            <div className="flex items-center gap-2">
+              <img
+                src={apply.user.profileImage}
+                alt={apply.user.nickname}
+                className="h-10 w-10 rounded-full border-2 border-slate-200 object-cover"
+              />
+              <p className="text-sm">{apply.user.nickname}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="bg-green flex h-8 w-8 items-center justify-center rounded-2xl p-2 text-sm text-white">
+                <Check />
+              </button>
+              <button className="flex h-8 w-8 items-center justify-center rounded-2xl bg-red-300 p-2 text-sm text-white">
+                <X />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className="fixed right-0 bottom-0 left-0 border-t border-slate-200 bg-white p-4 shadow-[0_-4px_10px_-5px_rgba(0,0,0,0.1)]">
         <button
@@ -142,7 +250,7 @@ const PostPage = () => {
       <SponsorshipDrawer
         open={isOpen}
         onOpenChange={setIsOpen}
-        maxSupportAmount={postData.maxamount}
+        maxSupportAmount={postData.maxamount ?? 0}
         onConfirmSupport={() => {
           // 후원 확정 시 필요한 로직 추가
         }}

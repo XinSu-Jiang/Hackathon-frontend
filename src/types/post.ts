@@ -38,3 +38,12 @@ export type PostItem = {
   createdAt: string;
   status: 'RECRUITING' | 'FULL' | 'CLOSED';
 };
+
+export type Apply = {
+  id: number;
+  postId: number;
+  user: User;
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  appliedAt: string;
+  responseAt: string;
+};

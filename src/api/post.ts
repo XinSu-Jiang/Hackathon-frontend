@@ -15,7 +15,9 @@ export const createPost = async (post: PostPayload) => {
 };
 
 export const getPost = async (id: number) => {
-  const response = await axiosInstance.get(`${END_POINTS.POSTS}/${id}`);
+  const response = await axiosInstance.get(`${END_POINTS.POSTS}/${id}`, {
+    useAuth: false,
+  });
   return response.data;
 };
 export type PostApiResponse = PageResponse<PostItem>;
@@ -43,7 +45,7 @@ export const getPosts = async ({
   const baseParams: BaseQueryParams = {
     page: pageParam,
     size: PAGE_SIZE,
-    sort: `name,${sort}`,
+    sort: `createdAt,${sort}`,
   };
 
   const optionalParams: Partial<PostQueryParams> = {
@@ -56,8 +58,15 @@ export const getPosts = async ({
 
   const response = await axiosInstance.get<PostApiResponse>(END_POINTS.POSTS, {
     params: apiParams,
-    useAuth: 'optional',
+    useAuth: false,
   });
 
+  return response.data;
+};
+
+export const postApply = async (postId: number) => {
+  const response = await axiosInstance.post(
+    `${END_POINTS.POSTS}/${postId}/applications`,
+  );
   return response.data;
 };

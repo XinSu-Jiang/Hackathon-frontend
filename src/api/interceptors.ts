@@ -50,7 +50,7 @@ export const handleTokenError = async (
 
   const { data, status } = error.response;
 
-  if (status === 401) {
+  if (status === 402 && !originRequest.url?.includes('token')) {
     try {
       const { accessToken } = await postTokenRefresh();
       localStorage.setItem('accessToken', accessToken);

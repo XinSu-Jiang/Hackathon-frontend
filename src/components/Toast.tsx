@@ -9,7 +9,7 @@ const TOAST_STYLE = {
   error: 'bg-red-500 text-white',
   warning: 'bg-yellow-500 text-black',
   info: 'bg-blue-500 text-white',
-  default: 'bg-dark-500 text-white',
+  default: 'bg-dark text-white',
 };
 
 const Toast = ({ id, message, duration = 1000 * 3, variant }: ToastProps) => {
@@ -36,7 +36,7 @@ const Toast = ({ id, message, duration = 1000 * 3, variant }: ToastProps) => {
     <div
       className={cn(
         TOAST_STYLE[variant],
-        'z-30 flex h-8 w-11/12 items-center justify-center rounded-md shadow-md',
+        'z-30 flex h-8 w-5/12 items-center justify-center rounded-md shadow-md',
         isVisible ? 'animate-slideInUp' : 'animate-fadeOut',
       )}
     >
