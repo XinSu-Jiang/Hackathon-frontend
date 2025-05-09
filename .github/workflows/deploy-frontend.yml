@@ -2,7 +2,7 @@ name: Build & Deploy Frontend
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-push-deploy:
@@ -10,11 +10,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -25,24 +20,20 @@ jobs:
 
       - name: Login to ECR
         run: |
-          aws ecr get-login-password \
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
             | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
-
-      - name: Install & Build
-        run: |
-          npm ci
-          npm run build
 
       - name: Build & Push Docker image
         run: |
+          # Dockerfile이 올바르게 수정되어 'npm run buildy'를 통해 앱을 빌드합니다.
           docker build -t ${{ secrets.ECR_REGISTRY }}/hackathon-frontend:latest .
-          docker push   ${{ secrets.ECR_REGISTRY }}/hackathon-frontend:latest
+          docker push ${{ secrets.ECR_REGISTRY }}/hackathon-frontend:latest
 
       - name: Deploy to ECS
         run: |
           aws ecs update-service \
             --cluster hackathon-cluster \
             --service frontend-service \
-            --region ap-northeast-2 \
+            --region ${{ secrets.AWS_REGION }} # 일관성을 위해 secrets 사용 권장
             --force-new-deployment
           echo "ECS frontend deploy finished"
