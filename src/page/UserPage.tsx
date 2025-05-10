@@ -21,6 +21,8 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 import { useUserStore } from '@/store/useUserStore';
 import MyPostsTabContent from '@/components/MyPostsTabContent';
+import DuckEggIcon from '@/icons/DuckEggIcon';
+import DuckIcon from '@/icons/DuckIcon';
 
 interface Tab {
   id: string;
@@ -68,8 +70,8 @@ const UserDetailPage = () => {
       </div>
 
       <div className="relative z-10 px-6">
-        <div className="flex items-end justify-between">
-          <div className="flex items-end">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
             <div className="relative">
               <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-white shadow-xl">
                 <img
@@ -85,6 +87,16 @@ const UserDetailPage = () => {
                 {displayUser.nickname}
               </h2>
             </div>
+            <div className="flex items-center gap-1">
+              <DuckEggIcon width={30} height={30} />
+              <p className="text-sm text-gray-500">
+                {displayUser.seedMoneyBalance ?? 0}
+              </p>
+            </div>
+            <div className="flex items-center gap-1">
+              <DuckIcon width={30} height={30} />
+              <p className="text-sm text-gray-500">{displayUser.deokPoints}</p>
+            </div>
           </div>
           {!user ? (
             <Button
@@ -95,10 +107,6 @@ const UserDetailPage = () => {
             </Button>
           ) : null}
         </div>
-
-        <p className="mt-3 max-w-[90%] text-sm text-black/90">
-          {!user ? displayUser.profileContent : '테스트 상태메세지'}
-        </p>
       </div>
       <div className="border-b border-gray-200">
         <div className="flex">

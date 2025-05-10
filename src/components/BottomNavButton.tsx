@@ -13,7 +13,7 @@ const BottomNavButton = ({ icon, label, path }: BottomNavButtonProps) => {
   return (
     <button
       className={`flex cursor-pointer flex-col items-center ${
-        currentPath.pathname === path ? 'text-olive-light' : 'text-gray-400'
+        currentPath.pathname === path ? 'text-amber-400' : 'text-gray-400'
       }`}
       onClick={() => navigate(path)}
     >

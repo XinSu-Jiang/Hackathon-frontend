@@ -1,4 +1,5 @@
 import { PostApiResponse, getPosts } from '@/api/post';
+import { CATEGORY_CODES_TO_STRING } from '@/constants/post';
 
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useUserStore } from '@/store/useUserStore';
@@ -32,7 +33,6 @@ const MyPostsTabContent = ({ userId }: MyPostsTabContentProps) => {
     queryKey: ['my-posts', userId, sort],
     queryFn: ({ pageParam }) =>
       getPosts({
-        userId,
         sort,
         pageParam,
       }),
@@ -55,7 +55,7 @@ const MyPostsTabContent = ({ userId }: MyPostsTabContentProps) => {
           onClick={() => navigate(`/posts/${post.id}`)}
         >
           <div className="flex w-fit justify-center rounded-full bg-gray-400 px-2 py-1 text-xs text-gray-200">
-            <p>{post.category}</p>
+            <p>{CATEGORY_CODES_TO_STRING[post.category]}</p>
           </div>
           <p className="text-lg font-bold">{post.title}</p>
           <p className="truncate overflow-hidden text-sm text-gray-500">

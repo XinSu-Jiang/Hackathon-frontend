@@ -168,7 +168,7 @@ const Home = () => {
           </button>
         </form>
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-          <PopoverTrigger>
+          <PopoverTrigger asChild>
             <div className="text-dark relative flex w-fit items-center">
               <Bell size={20} />
               {notifications.length !== 0 ||
@@ -278,15 +278,6 @@ const Home = () => {
         header={drawerConfig?.header ?? ''}
         description={drawerConfig?.description ?? ''}
       />
-      <button
-        onClick={() => {
-          navigate('/create-post');
-        }}
-        className="fixed right-5 bottom-20 mx-auto flex w-fit items-center gap-0.5 rounded-2xl bg-amber-400 px-4 py-2 text-white"
-      >
-        <Plus size={16} />
-        <p>글쓰기</p>
-      </button>
     </div>
   );
 };

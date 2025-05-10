@@ -149,3 +149,23 @@ export const getNotifications = async ({
   );
   return response.data;
 };
+
+export const postAllocation = async ({
+  postId,
+  status,
+}: {
+  postId: number;
+  status: string;
+}) => {
+  const response = await axiosInstance.put(`/applications/${postId}`, {
+    status,
+  });
+  return response.data;
+};
+
+export const postAnalyze = async (userId: number) => {
+  const response = await axiosInstance.get(`users/${userId}/analysis`, {
+    useAuth: false,
+  });
+  return response.data;
+};

@@ -13,6 +13,10 @@ import { useToastStore } from '@/store/useToastStore';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { InfiniteData } from '@tanstack/react-query';
 import { ApplicationApiResponse, getApplications } from '@/api/post';
+import PrevButton from '@/components/PrevButton';
+import usePostAllocationMutation from '@/hooks/usePostAllocationMutation';
+import LoadingDiv from '@/components/LoadingDiv';
+import useAnalizeQuery from '@/hooks/useAnalizeQuery';
 const PostPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { postId } = useParams();
@@ -86,9 +90,20 @@ const PostPage = () => {
     });
   };
 
+  const { data: analizeData, isLoading: analizeLoading } = useAnalizeQuery(
+    postData.author.id,
+  );
+
+  const { mutate: allocationPost } = usePostAllocationMutation(Number(postId));
+
   return (
     <div className="mb-20 min-h-screen bg-white p-4">
-      <AutoHideNavbar />
+      <AutoHideNavbar>
+        <div className="flex items-center gap-2">
+          <PrevButton />
+          <p className="text-lg font-bold text-slate-800">{postData.title}</p>
+        </div>
+      </AutoHideNavbar>
       <main className="container mx-auto mt-10 mb-15 space-y-6 p-4 md:p-6">
         <div className="flex items-center space-x-4">
           <img
@@ -177,34 +192,47 @@ const PostPage = () => {
             신청자 목록
           </h2>
           <div className="flex flex-col items-center justify-center gap-1">
-            {applies.map((apply) => (
-              <div
-                key={apply.id}
-                className="flex w-full items-center justify-between gap-2"
-              >
-                <div className="flex items-center gap-2">
-                  <img
-                    src={apply.user.profileImage}
-                    alt={apply.user.nickname}
-                    className="h-10 w-10 rounded-full border-2 border-slate-200 object-cover"
-                  />
-                  <p className="text-sm">{apply.user.nickname}</p>
+            {applies.length !== 0 ? (
+              applies.map((apply) => (
+                <div
+                  key={apply.id}
+                  className="flex w-full items-center justify-between gap-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={apply.user.profileImage}
+                      alt={apply.user.nickname}
+                      className="h-10 w-10 rounded-full border-2 border-slate-200 object-cover"
+                    />
+                    <p className="text-sm">{apply.user.nickname}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      className="bg-green flex h-8 w-8 items-center justify-center rounded-2xl p-2 text-sm text-white"
+                      onClick={() => allocationPost({ status: 'ACCEPTED' })}
+                    >
+                      <Check />
+                    </button>
+                    <button
+                      className="flex h-8 w-8 items-center justify-center rounded-2xl bg-red-300 p-2 text-sm text-white"
+                      onClick={() => allocationPost({ status: 'REJECTED' })}
+                    >
+                      <X />
+                    </button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button className="bg-green flex h-8 w-8 items-center justify-center rounded-2xl p-2 text-sm text-white">
-                    <Check />
-                  </button>
-                  <button className="flex h-8 w-8 items-center justify-center rounded-2xl bg-red-300 p-2 text-sm text-white">
-                    <X />
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-center text-sm text-gray-500">
+                신청자가 없습니다.
+              </p>
+            )}
           </div>
         </>
       )}
+      <LoadingDiv loading={analizeLoading} result={analizeData.summary} />
 
-      <div className="fixed right-0 bottom-0 left-0 border-t border-slate-200 bg-white p-4 shadow-[0_-4px_10px_-5px_rgba(0,0,0,0.1)]">
+      <div className="fixed right-0 bottom-0 left-0 mx-auto max-w-[425px] border-t border-slate-200 bg-white p-4 shadow-[0_-4px_10px_-5px_rgba(0,0,0,0.1)]">
         <button
           type="button"
           disabled={remainingSpots <= 0}

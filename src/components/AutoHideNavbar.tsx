@@ -72,8 +72,10 @@ const AutoHideNavbar = ({
         top: 0,
         left: 0,
         right: 0,
+        margin: '0 auto',
+        width: '425px',
         height: `${height}px`,
-        backgroundColor: 'lightcoral', // 명확한 구분을 위한 임시 배경색
+        backgroundColor: 'white',
         zIndex: 1000,
         display: 'flex', // 내부 요소 정렬을 위해 flex 사용 가능
         alignItems: 'center',
