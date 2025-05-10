@@ -5,7 +5,7 @@ import AutoHideNavbar from '@/components/AutoHideNavbar';
 import { Button } from '@/components/ui/button';
 import SponsorshipDrawer from '@/components/SponsorshipDrawer';
 import usePostDetailQuery from '@/hooks/usePostDetailQuery';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useUserStore } from '@/store/useUserStore';
 import { Apply } from '@/types/post';
 import usePostApplyMutation from '@/hooks/usePostApplyMutation';
@@ -78,7 +78,7 @@ const PostPage = () => {
 
   const { mutate: applyPost } = usePostApplyMutation(Number(postId));
   const { addToast } = useToastStore();
-
+  const navigate = useNavigate();
   const handleApplyPost = () => {
     applyPost(undefined, {
       onSuccess: () => {
@@ -121,7 +121,10 @@ const PostPage = () => {
         </div>
       </AutoHideNavbar>
       <main className="container mx-auto mt-10 mb-15 space-y-6 p-4 md:p-6">
-        <div className="flex items-center space-x-4">
+        <div
+          className="flex items-center space-x-4"
+          onClick={() => navigate(`/users/${postData.author.id}`)}
+        >
           <img
             src={
               postData.author.profileImage ||

@@ -23,6 +23,8 @@ import { useUserStore } from '@/store/useUserStore';
 import MyPostsTabContent from '@/components/MyPostsTabContent';
 import DuckEggIcon from '@/icons/DuckEggIcon';
 import DuckIcon from '@/icons/DuckIcon';
+import MyReviewsTabContent from '@/components/MyReviewsTabContent';
+import { useUserQuery } from '@/hooks/useUserQuery';
 
 interface Tab {
   id: string;
@@ -31,7 +33,7 @@ interface Tab {
 }
 
 const UserDetailPage = () => {
-  const { user } = useUserStore();
+  const { user: userData } = useUserQuery();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>('나의 포스팅');
 
@@ -51,13 +53,13 @@ const UserDetailPage = () => {
       case '나의 포스팅':
         return <MyPostsTabContent userId={displayUser.id} />;
       case '내가 받은 칭찬':
-        return <></>;
+        return <MyReviewsTabContent userId={displayUser.id} />;
       default:
         return <></>;
     }
   };
 
-  const displayUser = user ? user : guestUser;
+  const displayUser = userData ? userData : guestUser;
 
   const handleLoginClick = () => {
     navigate('/login');
@@ -102,7 +104,7 @@ const UserDetailPage = () => {
               </div>
             </div>
           </div>
-          {!user ? (
+          {!userData ? (
             <Button
               className="bg-olive hover:bg-olive-dark rounded-full px-6 text-white"
               onClick={handleLoginClick}
@@ -135,7 +137,7 @@ const UserDetailPage = () => {
           ))}
         </div>
       </div>
-      {user ? (
+      {userData ? (
         getPostsByTab()
       ) : (
         <div className="flex grow flex-col items-center justify-center p-10 text-center">

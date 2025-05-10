@@ -169,3 +169,27 @@ export const postAnalyze = async (userId: number) => {
   });
   return response.data;
 };
+
+export const postReview = async ({
+  review,
+  userId,
+  nickname,
+}: {
+  review: Review;
+  userId: number;
+  nickname: string;
+}) => {
+  const api = {
+    ...review,
+    reviewee: {
+      id: userId,
+      nickname,
+    },
+    postId: review.post.id,
+  };
+  const response = await axiosInstance.post(
+    END_POINTS.POSTS_REVIEWS_BY_USER(userId),
+    api,
+  );
+  return response.data;
+};

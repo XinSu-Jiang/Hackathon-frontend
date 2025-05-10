@@ -5,6 +5,7 @@ export const END_POINTS = {
   POSTS: '/posts',
   POSTS_BY_USER: (userId: number) => `/users/${userId}/posts`,
   POSTS_REVIEWS: (userId: number) => `/users/${userId}/reviews/received`,
+  POSTS_REVIEWS_BY_USER: (userId: number) => `/users/${userId}/reviews`,
   GOOGLE_LOGIN: `${BASE_URL}/oauth2/authorization/google`,
   KAKAO_LOGIN: `${BASE_URL}/oauth2/authorization/kakao`,
   NAVER_LOGIN: `${BASE_URL}/oauth2/authorization/naver`,

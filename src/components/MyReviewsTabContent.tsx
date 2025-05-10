@@ -40,6 +40,7 @@ const MyReviewsTabContent = ({ userId }: MyReviewsTabContentProps) => {
   });
 
   const reviews = data?.pages.flatMap((page) => page.content) ?? [];
+  console.log(reviews);
   const noResults = reviews.length === 0 && !isFetching;
   const noResultsMessage =
     reviews.length === 0 ? '받은 리뷰가 없습니다.' : '리뷰를 작성해보세요.';
