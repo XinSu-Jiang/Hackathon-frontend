@@ -27,6 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useUserStore } from '@/store/useUserStore';
 
 type DrawerConfig = {
   type: DrawerType;
@@ -87,7 +88,7 @@ const Home = () => {
   });
 
   const posts = data?.pages.flatMap((page) => page.content) ?? [];
-
+  const { user } = useUserStore();
   const { data: notificationsData } = useInfiniteScroll<
     notificationApiResponse,
     Error,
@@ -189,7 +190,7 @@ const Home = () => {
                     </div>
                   )))}
               {notifications.length === 0 ||
-                (notifications[0] === undefined && (
+                (notifications[0] === undefined && user && (
                   <p className="text-center text-sm text-gray-500">
                     알림이 없습니다.
                   </p>

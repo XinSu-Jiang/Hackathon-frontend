@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 
 import { Check, X, Gift } from 'lucide-react';
 import AutoHideNavbar from '@/components/AutoHideNavbar';
@@ -66,7 +66,7 @@ const PostPage = () => {
     [string, string?],
     number
   >({
-    queryKey: ['applications', postId],
+    queryKey: ['applications'],
     queryFn: ({ pageParam }) =>
       getApplications({ postId: Number(postId), pageParam }),
     getNextPageParam: (lastPage) =>
@@ -90,11 +90,27 @@ const PostPage = () => {
     });
   };
 
-  const { data: analizeData, isLoading: analizeLoading } = useAnalizeQuery(
-    postData.author.id,
-  );
+  const { mutate: allocationPost } = usePostAllocationMutation();
 
-  const { mutate: allocationPost } = usePostAllocationMutation(Number(postId));
+  const handleAllocationPost = (
+    applyId: number,
+    status: 'ACCEPTED' | 'REJECTED',
+  ) => {
+    allocationPost(
+      {
+        applyId,
+        status,
+      },
+      {
+        onSuccess: () => {
+          addToast({
+            message: '승인 완료',
+            variant: 'default',
+          });
+        },
+      },
+    );
+  };
 
   return (
     <div className="mb-20 min-h-screen bg-white p-4">
@@ -206,20 +222,30 @@ const PostPage = () => {
                     />
                     <p className="text-sm">{apply.user.nickname}</p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      className="bg-green flex h-8 w-8 items-center justify-center rounded-2xl p-2 text-sm text-white"
-                      onClick={() => allocationPost({ status: 'ACCEPTED' })}
-                    >
-                      <Check />
-                    </button>
-                    <button
-                      className="flex h-8 w-8 items-center justify-center rounded-2xl bg-red-300 p-2 text-sm text-white"
-                      onClick={() => allocationPost({ status: 'REJECTED' })}
-                    >
-                      <X />
-                    </button>
-                  </div>
+                  {apply.status !== 'ACCEPTED' ? (
+                    <div className="flex items-center gap-2">
+                      <button
+                        className="bg-green flex h-8 w-8 items-center justify-center rounded-2xl p-2 text-sm text-white"
+                        onClick={() =>
+                          handleAllocationPost(apply.id, 'ACCEPTED')
+                        }
+                      >
+                        <Check />
+                      </button>
+                      <button
+                        className="flex h-8 w-8 items-center justify-center rounded-2xl bg-red-300 p-2 text-sm text-white"
+                        onClick={() =>
+                          handleAllocationPost(apply.id, 'REJECTED')
+                        }
+                      >
+                        <X />
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="rounded-md border border-dashed border-gray-400 px-2 py-1 text-sm text-gray-400">
+                      승인 완료
+                    </p>
+                  )}
                 </div>
               ))
             ) : (
@@ -230,7 +256,18 @@ const PostPage = () => {
           </div>
         </>
       )}
-      <LoadingDiv loading={analizeLoading} result={analizeData.summary} />
+      <Suspense
+        fallback={
+          <div className="mb-2 flex h-fit w-fit items-center justify-center">
+            <div className="h-6 w-6 animate-spin rounded-full border-4 border-gray-200 border-t-amber-500" />
+            <p className="text-sm text-gray-600">
+              AI가 사용자를 분석중입니다...
+            </p>
+          </div>
+        }
+      >
+        <LoadingDiv userId={postData.author.id} />
+      </Suspense>
 
       <div className="fixed right-0 bottom-0 left-0 mx-auto max-w-[425px] border-t border-slate-200 bg-white p-4 shadow-[0_-4px_10px_-5px_rgba(0,0,0,0.1)]">
         <button

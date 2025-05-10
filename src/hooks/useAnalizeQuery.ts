@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { postAnalyze } from '@/api/post';
 import { useSuspenseQuery } from '@tanstack/react-query';
 

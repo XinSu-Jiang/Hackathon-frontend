@@ -86,16 +86,20 @@ const UserDetailPage = () => {
               <h2 className="text-2xl font-bold text-black">
                 {displayUser.nickname}
               </h2>
-            </div>
-            <div className="flex items-center gap-1">
-              <DuckEggIcon width={30} height={30} />
-              <p className="text-sm text-gray-500">
-                {displayUser.seedMoneyBalance ?? 0}
-              </p>
-            </div>
-            <div className="flex items-center gap-1">
-              <DuckIcon width={30} height={30} />
-              <p className="text-sm text-gray-500">{displayUser.deokPoints}</p>
+              <div className="flex items-center gap-1">
+                {displayUser?.seedMoneyBalance ? (
+                  <DuckEggIcon width={30} height={30} />
+                ) : (
+                  <DuckEggIcon width={30} height={30} />
+                )}
+                <p className="text-sm text-gray-500">
+                  {displayUser?.seedMoneyBalance ?? 0}
+                </p>
+                <DuckIcon width={30} height={30} />
+                <p className="text-sm text-gray-500">
+                  {displayUser?.deokPoints}
+                </p>
+              </div>
             </div>
           </div>
           {!user ? (

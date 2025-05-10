@@ -151,13 +151,13 @@ export const getNotifications = async ({
 };
 
 export const postAllocation = async ({
-  postId,
+  applyId,
   status,
 }: {
-  postId: number;
+  applyId: number;
   status: string;
 }) => {
-  const response = await axiosInstance.put(`/applications/${postId}`, {
+  const response = await axiosInstance.put(`/applications/${applyId}`, {
     status,
   });
   return response.data;

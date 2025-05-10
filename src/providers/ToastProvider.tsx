@@ -7,7 +7,7 @@ const ToastProvider = () => {
   return (
     <div
       id="toast-container"
-      className="pointer-events-none fixed bottom-25 z-[9999] flex w-full flex-col items-center justify-end gap-2 p-4"
+      className="pointer-events-none fixed bottom-13 left-1/2 z-[9999] flex w-full -translate-x-1/2 transform flex-col items-center gap-2 p-4"
     >
       {toastList.map((toast) => (
         <Toast key={toast.id} {...toast} />

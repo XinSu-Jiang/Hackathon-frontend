@@ -1,16 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postAllocation } from '@/api/post';
-import { useNavigate } from 'react-router';
 
-const usePostAllocationMutation = (postId: number) => {
-  const navigate = useNavigate();
+const usePostAllocationMutation = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: ({ status }: { status: string }) =>
-      postAllocation({ postId, status }),
+    mutationFn: ({ applyId, status }: { applyId: number; status: string }) =>
+      postAllocation({ applyId, status }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['posts', postId.toString()],
+        queryKey: ['applications'],
       });
     },
   });
