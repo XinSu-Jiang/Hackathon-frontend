@@ -36,7 +36,7 @@ const Toast = ({ id, message, duration = 1000 * 3, variant }: ToastProps) => {
     <div
       className={cn(
         TOAST_STYLE[variant],
-        'z-30 flex h-8 w-5/12 items-center justify-center rounded-md shadow-md',
+        'z-30 flex h-8 w-full items-center justify-center rounded-md shadow-md',
         isVisible ? 'animate-slideInUp' : 'animate-fadeOut',
       )}
     >
